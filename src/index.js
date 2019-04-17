@@ -1,16 +1,24 @@
-class Person {
-    constructor(name, age) {
-        this.name = name
-        this.age = age
-    }
-    eat() {
-        alert(`${this.name} eat something`)
-    }
-    speak() {
-        alert(`${this.name} age is ${this.age}`)
-    }
+function loadimg (url) {
+    let promise = new Promise(function(resolve, reject) {
+        let img = document.createElement('img')
+        img.onload = function() {
+            resolve(img)
+        }
+        img.onerror = function() {
+            reject('图片加载失败')
+        }
+        img.src = url
+    })
+    return promise
 }
-let zhang = new Person('Zhang', 30)
-zhang.eat()
-zhang.speak()
-let jia = new Person('Jia', 30)
+let src = 'https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_86d58ae1.png'
+let result = loadimg(src)
+result.then(function (img) {
+    alert(`width: ${img.width}`)
+    //返回img可以将img继续传递下去
+    return img
+}).then(function(img){
+    alert(`height: ${img.height}`)
+}).catch(function(ex) {
+    alert(ex)
+})
