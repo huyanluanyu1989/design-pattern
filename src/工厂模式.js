@@ -63,3 +63,30 @@ window.$ = function (seletor) {
 var $p = $('p')
 console.log($p)
 console.log($p.addClass)
+
+//React.createElement
+var profile = <div>
+    <img src='avatar.png' className='profile' />
+    <h3>{[user.firstName, user.lastName].join(' ')}</h3>
+</div>
+
+var profile = React.createElement('div', null,
+    React.createElement('img', { src: 'avator.png', className: 'provile' }),
+    React.createElement('h3', null, [user.firstName, user.lastName].join(' '))
+)
+
+class Vnode(tag, attrs, children) {
+    // ...省略内部代码
+}
+React.createElement = function (tag, attrs, children) {
+    return new Vnode(tag, attrs, children)
+}
+
+//vue异步组件
+Vue.component('async-example', function (resolve, reject) {
+    setTimeout(() => {
+        resolve({
+            template: '<div>I am async</div>'
+        })
+    }, 1000);
+})

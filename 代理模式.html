@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+</head>
+
+<body>
+    <div id='div1'>
+        <a href="#">a1</a>
+        <a href="#">a2</a>
+        <a href="#">a3</a>
+        <a href="#">a4</a>
+        <a href="#">a5</a>
+    </div>
+    <script>
+        // var div1 = document.getElementById('div1')
+        // 要监听a标签的所有点击事件，所以没法所有a标签都去绑定，加一个代理
+        // div1.addEventListener('click', function (e) {
+        //     var target = e.target
+        //     // 用的事件冒泡的这种模型
+        //     if (target.nodeName === 'A') {
+        //         alert(target.innerHTML)
+        //     }
+        // })
+
+        // $('#div1').click(function () {
+        //     // 这种情况$(this)是没有问题的
+        //     // $(this).css('background', 'yellow')
+        //     var _this = this
+        //     setTimeout(() => {
+        //         // 这里的this指向的是window
+        //         // $(this).css('background', 'yellow')
+        //         // 使用_this = this，这样就没问题了
+        //         $(_this).css('background', 'yellow')
+        //     }, 1000);
+        // })
+
+        // 使用jQuery的代理
+        $('#div1').click(function () {
+            setTimeout($.proxy(() => {
+                $(this).css('background', 'yellow')
+            }, this), 1000);
+        })
+    </script>
+</body>
+
+</html>
