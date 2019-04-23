@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.bootcss.com/jquery/3.4.0/jquery.js"></script>
+</head>
+
+<body>
+    <div id='div1'>
+        <a href="#">a1</a>
+        <a href="#">a2</a>
+        <a href="#">a3</a>
+        <a href="#">a4</a>
+        <a href="#">a5</a>
+    </div>
+    <script>
+        var arr = [1, 2, 3]
+        var nodeList = document.getElementsByTagName('a')
+        var $a = $('a')
+
+        // 写一个统一的方法，既能遍历数组，又能遍nodeList，又能遍历对象
+        function each(data) {
+            // 生成迭代器，经过jQuery转后后，都会继承了jQuery的each函数
+            var $data = $(data)
+            $data.each(function (key, val) {
+                console.log(key, val)
+            })
+        }
+
+        each(arr)
+        each(nodeList)
+        each($a)
+
+        // // 遍历数组
+        // arr.forEach((item) => {
+        //     console.log(item)
+        // })
+
+        // // 遍历nodeList
+        // var i, length = nodeList.length
+        // for(i = 0; i < length; i++) {
+        //     console.log(nodeList[i])
+        // }
+
+        // // 遍历a
+        // $a.each((key, elem) => {
+        //     console.log(key, elem)
+        // })
+    </script>
+</body>
+
+</html>

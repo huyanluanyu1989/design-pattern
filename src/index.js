@@ -1,53 +1,44 @@
-// 主题，保存状态，状态变化之后触发所有观察者对象
-class Subject {
-    constructor(state) {
-        this.state = 0
-        // 所有观察者，给它一个数组
-        this.observers = []
+// 状态(红灯，绿灯，黄灯)
+class State {
+    constructor(color) {
+        this.color = color
     }
+    // 这里的context 就是 Context 的一个实例
+    handle(context) {
+        console.log(`turn to ${this.color} light`)
+        // this就是当前class的一个实例
+        // 设置状态
+        context.setState(this)
+    }
+}
+
+// 主体
+class Context {
+    constructor() {
+        this.state = null
+    }
+    // 获取状态
     getState() {
         return this.state
     }
     setState(state) {
         this.state = state
-        // 改完state之后，立刻会触发所有的观察者
-        this.notifyAllObservers()
-    }
-    // 把当前所有的observers进行一个遍历
-    notifyAllObservers() {
-        this.observers.forEach(observers => {
-            observers.update()
-        })
-    }
-    // 添加新观察者，支持多个观察者
-    attach(observer) {
-        this.observers.push(observer)
     }
 }
 
-// 观察者
-class Observer {
-    // subject 就是Subject的一个对象或者实例
-    constructor(name, subject) {
-        this.name = name
-        this.subject = subject
-        // 在初始观察者的最后，把它自己attch进去当前的主题中来
-        this.subject.attach(this)
-    }
-    //为什么要弄一个subject呢，因为我们当触发观察者的update之后，我们想把subject的state打印出来
-    update() {
-        console.log(`${this.name} update, state: ${this.subject.getState()}`)
-    }
-}
+// test
+let context = new Context()
 
-// 先初始化一个主题
-let subject = new Subject()
+let green = new State('green')
+let yellow = new State('yellow')
+let red = new State('red')
 
-// 定义一个观察者
-let o1 = new Observer('o1', subject)
-let o2 = new Observer('o2', subject)
-let o3 = new Observer('o3', subject)
-// 对主题进行修改,每一次setState的时候都会触发所有观察者
-subject.setState(1)
-subject.setState(2)
-subject.setState(3)
+//绿灯亮了
+green.handle(context)
+console.log(context.getState()) // 打印状态
+
+yellow.handle(context)
+console.log(context.getState())
+
+red.handle(context)
+console.log(context.getState())
